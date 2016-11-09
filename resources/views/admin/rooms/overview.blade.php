@@ -1,0 +1,31 @@
+@extends('layouts.app')
+
+@section('content')
+    <div class="container">
+        <div class="row">
+            @include('admin/sidenav')
+            <div class="col-md-9">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><b>Rooms</b></div>
+                    <div class="panel-body">
+                        <div>
+                            <a href="/admin/room/create">Create</a>
+                        </div>
+
+                        @foreach ($rooms as $room)
+                            <div>
+                                {{ $room->name }} -
+                                Houses {{ $room->capacity }} people in {{ $room->building->name }}
+
+                                <span style="float: right;">
+                                    <a href="/admin/room/edit/{{ $room->id}}">Edit</a>
+                                    <a href="/admin/room/delete/{{ $room->id}}">Delete</a>
+                                </span>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

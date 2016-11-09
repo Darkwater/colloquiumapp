@@ -33,6 +33,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'role:administrator'], functi
     Route::post('template/create', 'Admin\TemplateController@store');
     Route::get('template/edit/{id}', 'Admin\TemplatesController@edit');
     Route::post('template/update', 'Admin\TemplateController@update');
+
+    Route::get('rooms', 'Admin\RoomController@overview');
+    Route::get('room/create', 'Admin\RoomController@create');
+    Route::post('room/store', 'Admin\RoomController@store');
+    Route::get('room/edit/{id}', 'Admin\RoomController@edit');
+    Route::post('room/update', 'Admin\RoomController@update');
+    Route::get('room/delete/{id}', 'Admin\RoomController@delete');
 });
 
 Route::group(['prefix' => 'colloquium'], function () {
