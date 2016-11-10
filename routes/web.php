@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/profile', 'UsersController@profile');
+Route::get('/profile', 'Admin\UsersController@profile');
 Route::get('/home', 'HomeController@index');
 Route::get('/test', 'TestController@overview');
 
@@ -35,16 +35,18 @@ Route::group(['prefix' => 'admin', 'middleware' => 'role:administrator'], functi
     Route::post('room/update', 'Admin\RoomController@update');
     Route::get('room/delete/{id}', 'Admin\RoomController@delete');
 
-    Route::get('{type}', 'Admin\BaseController@overview');
-    Route::get('{type}/create', 'Admin\BaseController@create');
-    Route::post('{type}/store', 'Admin\BaseController@store');
-    Route::get('{type}/edit/{id}', 'Admin\BaseController@update');
+//    Route::get('{type}', 'Admin\BaseController@overview');
+//    Route::get('{type}/create', 'Admin\BaseController@create');
+//    Route::post('{type}/store', 'Admin\BaseController@store');
+//    Route::get('{type}/edit/{id}', 'Admin\BaseController@update');
 
     Route::get('templates', 'Admin\TemplatesController@overview');
     Route::get('template/create', 'Admin\TemplatesController@create');
     Route::post('template/create', 'Admin\TemplateController@store');
     Route::get('template/edit/{id}', 'Admin\TemplatesController@edit');
     Route::post('template/update', 'Admin\TemplateController@update');
+
+    Route::resource('themes', 'Admin\ThemeController');
 });
 
 Route::group(['prefix' => 'colloquium'], function () {
