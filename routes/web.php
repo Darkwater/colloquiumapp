@@ -28,6 +28,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'role:administrator'], functi
     Route::get('user/edit/{user}', 'Admin\UsersController@edit');
     Route::post('user/update', 'Admin\UsersController@edit');
 
+    Route::get('rooms', 'Admin\RoomController@overview');
+    Route::get('room/create', 'Admin\RoomController@create');
+    Route::post('room/store', 'Admin\RoomController@store');
+    Route::get('room/edit/{id}', 'Admin\RoomController@edit');
+    Route::post('room/update', 'Admin\RoomController@update');
+    Route::get('room/delete/{id}', 'Admin\RoomController@delete');
+
     Route::get('{type}', 'Admin\BaseController@overview');
     Route::get('{type}/create', 'Admin\BaseController@create');
     Route::post('{type}/store', 'Admin\BaseController@store');
@@ -38,13 +45,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'role:administrator'], functi
     Route::post('template/create', 'Admin\TemplateController@store');
     Route::get('template/edit/{id}', 'Admin\TemplatesController@edit');
     Route::post('template/update', 'Admin\TemplateController@update');
-
-    Route::get('rooms', 'Admin\RoomController@overview');
-    Route::get('room/create', 'Admin\RoomController@create');
-    Route::post('room/store', 'Admin\RoomController@store');
-    Route::get('room/edit/{id}', 'Admin\RoomController@edit');
-    Route::post('room/update', 'Admin\RoomController@update');
-    Route::get('room/delete/{id}', 'Admin\RoomController@delete');
 });
 
 Route::group(['prefix' => 'colloquium'], function () {
@@ -53,7 +53,7 @@ Route::group(['prefix' => 'colloquium'], function () {
     Route::post('create', 'ColloquiumController@store');
 });
 
-Route::group(['prefix' => 'mobile'], function() {
+Route::group(['prefix' => 'agenda'], function() {
     Route::get('/', 'SearchController@index');
     Route::get('/details/{id}', 'SearchController@details');
 });
