@@ -8,6 +8,12 @@
                 <div class="panel panel-default">
                     <div class="panel-heading"><b>Rooms</b></div>
                     <div class="panel-body">
+                        @if (isset($message))
+                            <div>
+                                {{ $message }}
+                            </div>
+                        @endif
+
                         <div>
                             <a href="/admin/room/create">Create</a>
                         </div>
@@ -18,8 +24,8 @@
                                 Houses {{ $room->capacity }} people in {{ $room->building->name }}
 
                                 <span style="float: right;">
-                                    <a href="/admin/room/edit/{{ $room->id}}">Edit</a>
-                                    <a href="/admin/room/delete/{{ $room->id}}">Delete</a>
+                                    <a href="/admin/room/edit/{{ $room->id }}">Edit</a>
+                                    <a href="/admin/room/delete/{{ $room->id }}">Delete</a>
                                 </span>
                             </div>
                         @endforeach

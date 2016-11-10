@@ -8,6 +8,12 @@
                     <div class="panel-heading"><b>Create room</b></div>
 
                     <div class="panel-body">
+                        @foreach ($errors->all() as $error)
+                            <div>
+                                {{ $error }}
+                            </div>
+                        @endforeach
+
                         <form method="post" action="/admin/room/store">
                             {{ csrf_field() }}
                             <div class="col-md-6">

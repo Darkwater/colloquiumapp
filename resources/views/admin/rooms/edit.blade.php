@@ -8,6 +8,12 @@
                     <div class="panel-heading"><b>Edit room</b></div>
 
                     <div class="panel-body">
+                        @foreach ($errors->all() as $error)
+                            <div>
+                                {{ $error }}
+                            </div>
+                        @endforeach
+
                         <form method="post" action="/admin/room/update">
                             {{ csrf_field() }}
                             <input type="hidden" name="room_id" value="{{ $room->id }}" />

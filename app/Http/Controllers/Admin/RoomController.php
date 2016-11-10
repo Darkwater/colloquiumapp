@@ -23,12 +23,13 @@ class RoomController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function overview()
+    public function overview(Request $request)
     {
         $rooms = Room::all();
 
         return view('admin/rooms/overview', [
             'rooms' => $rooms,
+            'message' => $request->session()->get('success')
         ]);
     }
 
@@ -54,11 +55,19 @@ class RoomController extends Controller
      */
     protected function store(Request $request)
     {
-        Room::create([
-            'name'        => $request->input('name'),
-            'capacity'    => $request->input('capacity'),
-            'building_id' => $request->input('building_id'),
+        $this->validate($request, [
+            'name' => 'required',
+            'capacity' => 'required|numeric',
+            'building_id' => 'required|numeric|exists:buildings,id'
         ]);
+
+        $room = new Room;
+        $room->name         = $request->input('name');
+        $room->capacity     = $request->input('capacity');
+        $room->building_id  = $request->input('building_id');
+        $room->save();
+
+        $request->session()->flash('success', "Room {$room->name} successfully stored.");
 
         return redirect('/admin/rooms');
     }
@@ -87,11 +96,19 @@ class RoomController extends Controller
      */
     protected function update(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required',
+            'capacity' => 'required|numeric',
+            'building_id' => 'required|numeric|exists:buildings,id'
+        ]);
+
         $room = Room::find($request->input('room_id'));
         $room->name = $request->input('name');
         $room->capacity = $request->input('capacity');
         $room->building_id = $request->input('building_id');
         $room->save();
+
+        $request->session()->flash('success', "Room {$room->name} successfully updated.");
 
         return redirect('/admin/rooms');
     }
